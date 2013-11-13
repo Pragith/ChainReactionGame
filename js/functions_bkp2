@@ -1,3 +1,10 @@
+function new_game(){
+	for (i=0;i<size;i++)
+		for (j=0;j<size;j++)
+			localStorage["cell"+i+j] = 0
+	window.location.reload()
+}
+
 function show_table(){
 	
 	current_cell_size = []
@@ -20,29 +27,29 @@ function show_table(){
 
 function increase_cell_size(i,j){
 	
-	//Increase till maximum cell size is reached
-	if (store.get("cell"+i+j) < get_max_cell_size(i,j)){
-		store.set("cell"+i+j, store.get("cell"+i+j)+1)	
+	if (parseInt(localStorage["cell"+i+j]) != get_max_cell_size(i,j)){
+		parseInt(localStorage["cell"+i+j]) = parseInt(localStorage["cell"+i+j]) + 1
+		console.log(localStorage["cell"+i+j])
 	}
-	//Explode to other cells
 	else{
-		store.set("cell"+i+j, 0)
 		if (get_max_cell_size(i,j+1) != 'x'){
-			store.set("cell"+i+(j+1), store.get("cell"+i+(j+1))+1)
+			console.log('Increasing the size of: '+i+','+(j+1))
 		}
 		if (get_max_cell_size(i,j-1)  != 'x'){
-			store.set("cell"+i+(j-1), store.get("cell"+i+(j-1))+1)
+			console.log('Increasing the size of: '+i+','+(j-1))
 		}
 		if (get_max_cell_size(i+1,j) != 'x'){
-			store.set("cell"+(i+1)+j, store.get("cell"+(i+1)+j)+1)
+			console.log('Increasing the size of: '+(i+1)+','+j)
 		}
 		if (get_max_cell_size(i-1,j) != 'x'){
-			store.set("cell"+(i-1)+j, store.get("cell"+(i-1)+j)+1)
-		}	
+			console.log('Increasing the size of: '+(i-1)+','+j)
+		}		
 	}
-	// --- RECURSION REQUIRED ---
 	window.location.reload()
 }
+
+
+
 
 
 
@@ -61,12 +68,5 @@ function get_max_cell_size(i,j){
 	}
 	else
 		return 3
-}
-
-function new_game(){
-	for (i=0;i<size;i++)
-		for (j=0;j<size;j++)
-			store.set('cell'+i+j,0)
-	window.location.reload()
 }
 
