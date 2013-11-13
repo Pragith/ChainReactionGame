@@ -7,4 +7,4 @@ size = 5
 
 //Functions:-
 
-show_table(size)
+show_table()
