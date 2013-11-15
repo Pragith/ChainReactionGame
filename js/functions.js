@@ -15,11 +15,13 @@ function show_table(){
 
 
 function increase_cell_size(i,j){
+	
 	//Increase till maximum cell size is reached		
 	if (store.get("cell"+i+j) < get_max_cell_size(i,j)){
 		store.set("cell"+i+j, store.get("cell"+i+j)+1)	 // Increase the size of current cell by 1
 		window.location.reload()
 	}
+	
 	//Explode to other cells
 	else{
 		//store.set("cell"+i+j, 0) //Set current cell to zero
@@ -36,33 +38,56 @@ function explode(i,j){
 	console.log(store.get("cell"+i+(j+1)))
 	console.log(get_max_cell_size(i,(j+1)))
 
-	if ((store.get("cell"+i+(j+1)) > get_max_cell_size(i,(j+1))) && (get_max_cell_size(i,j+1) != 'x')){
-		console.log("Inside")
-		store.set("cell"+i+(j+1), store.get("cell"+i+(j+1))+1)
-		store.set("cell"+i+j,0)
-		explode(i,(j+1))
+	if (get_max_cell_size(i,j+1) != 'x'){
+		//Explode the nearest cell if it's already maxed
+		if (store.get("cell"+i+(j+1)) > get_max_cell_size(i,(j+1))){
+			store.set("cell"+i+j,0) // Reset the current cell to zero
+			explode(i,(j+1)) // Explode to neighbor
+		}
+		//Increase the size by 1 of the nearest cell
+		else{
+			store.set("cell"+i+(j+1), store.get("cell"+i+(j+1)+1))
+		}
 	}
 
-	if ((store.get("cell"+i+(j-1)) > get_max_cell_size(i,(j-1))) && (get_max_cell_size(i,j-1)  != 'x')){
-		console.log("Inside")
-		store.set("cell"+i+(j-1), store.get("cell"+i+(j-1))+1)
-		store.set("cell"+i+j,0)
-		explode(i,(j-1))
+	if (get_max_cell_size(i,j-1) != 'x'){
+		//Explode the nearest cell if it's already maxed
+		if (store.get("cell"+i+(j-1)) > get_max_cell_size(i,(j-1))){
+			store.set("cell"+i+j,0) // Reset the current cell to zero
+			explode(i,(j+1)) // Explode to neighbor
+		}
+		//Increase the size by 1 of the nearest cell
+		else{
+			store.set("cell"+i+(j-1), store.get("cell"+i+(j-1)+1))
+		}
 	}
-	
-	if ((store.get("cell"+(i+1)+j) > get_max_cell_size((i+1),j)) && (get_max_cell_size(i+1,j) != 'x')){
-		console.log("Inside")
-		store.set("cell"+(i+1)+j, store.get("cell"+(i+1)+j)+1)
-		store.set("cell"+i+j,0)
-		explode((i+1),j)
+
+
+	if (get_max_cell_size(i+1,j) != 'x'){
+		//Explode the nearest cell if it's already maxed
+		if (store.get("cell"+(i+1)+j) > get_max_cell_size(i+1,j)){
+			store.set("cell"+i+j,0) // Reset the current cell to zero
+			explode(i,(j+1)) // Explode to neighbor
+		}
+		//Increase the size by 1 of the nearest cell
+		else{
+			store.set("cell"+(i+1)+j, store.get("cell"+(i+1)+j+1))
+		}
 	}
-	
-	if ((store.get("cell"+(i-1)+j) > get_max_cell_size((i-1),j)) && (get_max_cell_size(i-1,j) != 'x')){
-		console.log("Inside")
-		store.set("cell"+(i-1)+j, store.get("cell"+(i-1)+j)+1)		
-		store.set("cell"+i+j,0)
-		explode((i-1),j)
+
+
+	if (get_max_cell_size(i-1,j) != 'x'){
+		//Explode the nearest cell if it's already maxed
+		if (store.get("cell"+(i-1)+j) > get_max_cell_size(i-1,j)){
+			store.set("cell"+i+j,0) // Reset the current cell to zero
+			explode(i,(j+1)) // Explode to neighbor
+		}
+		//Increase the size by 1 of the nearest cell
+		else{
+			store.set("cell"+(i-1)+j, store.get("cell"+(i-1)+j+1))
+		}
 	}
+
 }
 
 
