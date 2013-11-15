@@ -11,4 +11,4 @@ Issues
 Recursion required
 
 ##ISSUE - 2
-Corner boxes logic not working
+RESOLVED - Corner boxes logic not working

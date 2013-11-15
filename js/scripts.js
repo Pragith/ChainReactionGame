@@ -1,6 +1,6 @@
 //Configuration:-
 
-size = 6
+size = 5
 
 
 
